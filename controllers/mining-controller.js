@@ -1,55 +1,41 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const MiningSession = require('../models/mining-session-model'); // Предполагается, что у вас есть модель для майнинга
 
-const MiningController = {
-    miningPage: async (req, res) => {
-        res.render('mining'); // Отображение страницы майнинга
-    },
-
-    startMining: async (req, res) => {
-        const { userId, speed } = req.body;
-
-        try {
-            const miningSession = await prisma.miningSession.create({
-                data: {
-                    userId,
-                    speed,
-                },
-            });
-
-            res.json({ message: 'Mining started', session: miningSession });
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to start mining' });
-        }
-    },
-
-    endMining: async (req, res) => {
-        const { sessionId, amountMined } = req.body;
-
-        try {
-            const miningSession = await prisma.miningSession.update({
-                where: { id: sessionId },
-                data: {
-                    endTime: new Date(),
-                    amountMined,
-                },
-            });
-
-            // Обновление баланса пользователя
-            await prisma.user.update({
-                where: { id: miningSession.userId },
-                data: {
-                    balance: {
-                        increment: amountMined,
-                    },
-                },
-            });
-
-            res.json({ message: 'Mining ended', session: miningSession });
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to end mining' });
-        }
-    },
+exports.miningPage = (req, res) => {
+    res.send('Mining Page');
 };
 
-module.exports = MiningController;
+exports.startMining = async (req, res) => {
+    const { userId } = req.body;
+    try {
+        const miningSession = await MiningSession.findOne({ userId });
+        if (miningSession) {
+            return res.status(400).json({ message: 'Mining already in progress' });
+        }
+        const newMiningSession = new MiningSession({
+            userId,
+            startedAt: Date.now(),
+            balance: 0,
+        });
+        await newMiningSession.save();
+        res.status(200).json({ message: 'Mining started' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to start mining' });
+    }
+};
+
+exports.endMining = async (req, res) => {
+    const { userId } = req.body;
+    try {
+        const miningSession = await MiningSession.findOne({ userId });
+        if (!miningSession) {
+            return res.status(404).json({ message: 'No mining in progress' });
+        }
+        const duration = Date.now() - miningSession.startedAt;
+        const newBalance = miningSession.balance + (duration / 1000) * 0.0001;
+        await MiningSession.findOneAndDelete({ userId });
+        res.status(200).json({ newBalance });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to end mining' });
+    }
+};
+

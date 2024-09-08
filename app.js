@@ -1,13 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
-var path = require('path');
-var fs = require('fs');
+const createError = require('http-errors');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
-var app = express();
+const app = express();
 
 app.use(cors());
 app.use(logger('dev'));

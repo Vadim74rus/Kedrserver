@@ -70,15 +70,15 @@ model Comment {
 }
 
 model MiningSession {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String    @db.ObjectId
-  user        User      @relation(fields: [userId], references: [id])
-  startTime   DateTime  @default(now())
-  endTime     DateTime?
-  speed       String // Low, Norm, Hard
-  amountMined Float     @default(0)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  startedAt DateTime @default(now())
+  balance   Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([userId], name: "user_mining_session_index")
+  @@index([userId], name: "user_mining_index")
 }
 
 model Balance {
