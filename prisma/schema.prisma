@@ -8,24 +8,30 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  email          String          @unique
-  password       String
-  name           String?
-  avatarUrl      String?
-  dateOfBirth    DateTime?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  bio            String?
-  location       String?
-  balance        Float           @default(0)
-  posts          Post[]
-  likes          Like[]
-  comments       Comment[]
-  followers      Follows[]       @relation("following")
-  following      Follows[]       @relation("follower")
-  miningSessions MiningSession[]
-  balances       Balance[]
+  id               String          @id @default(auto()) @map("_id") @db.ObjectId
+  email            String          @unique
+  password         String
+  name             String?
+  avatarUrl        String?
+  dateOfBirth      DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  bio              String?
+  location         String?
+  balance          Float           @default(0)
+  balanceMining    Float           @default(0)
+  percentage       Float           @default(0) // Новое поле для хранения процента майнинга
+  miningPercentage Float           @default(0) // Добавьте это поле
+  isPremium        Boolean         @default(false) // Добавлено поле isPremium
+  posts            Post[]
+  likes            Like[]
+  comments         Comment[]
+  followers        Follows[]       @relation("following")
+  following        Follows[]       @relation("follower")
+  miningSessions   MiningSession[]
+  Balance          Balance[]
+  sentMessages     Message[]       @relation("sender")
+  receivedMessages Message[]       @relation("receiver")
 }
 
 model Follows {
@@ -90,4 +96,16 @@ model Balance {
   updatedAt DateTime @updatedAt
 
   @@index([userId], name: "user_balance_index")
+}
+
+model Message {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  sender     User     @relation("sender", fields: [senderId], references: [id])
+  senderId   String   @db.ObjectId
+  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
+  receiverId String   @db.ObjectId
+  text       String
+  timestamp  DateTime @default(now())
+
+  @@index([senderId, receiverId], name: "sender_receiver_index")
 }
