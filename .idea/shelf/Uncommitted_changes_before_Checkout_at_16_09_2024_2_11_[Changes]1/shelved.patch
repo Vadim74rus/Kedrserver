@@ -1,0 +1,831 @@
+Index: bin/www
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#!/usr/bin/env node\r\n\r\n/**\r\n * Module dependencies.\r\n */\r\n\r\nvar app = require('../app');\r\nvar debug = require('debug')('game-list:server');\r\nvar http = require('http');\r\n\r\n/**\r\n * Get port from environment and store in Express.\r\n */\r\n\r\nvar port = normalizePort(process.env.PORT || '3000');\r\napp.set('port', port);\r\n\r\n/**\r\n * Create HTTP server.\r\n */\r\n\r\nvar server = http.createServer(app);\r\n\r\n/**\r\n * Listen on provided port, on all network interfaces.\r\n */\r\n\r\nserver.listen(port);\r\nserver.on('error', onError);\r\nserver.on('listening', onListening);\r\n\r\n/**\r\n * Normalize a port into a number, string, or false.\r\n */\r\n\r\nfunction normalizePort(val) {\r\n  var port = parseInt(val, 10);\r\n\r\n  if (isNaN(port)) {\r\n    // named pipe\r\n    return val;\r\n  }\r\n\r\n  if (port >= 0) {\r\n    // port number\r\n    return port;\r\n  }\r\n\r\n  return false;\r\n}\r\n\r\n/**\r\n * Event listener for HTTP server \"error\" event.\r\n */\r\n\r\nfunction onError(error) {\r\n  if (error.syscall !== 'listen') {\r\n    throw error;\r\n  }\r\n\r\n  var bind = typeof port === 'string'\r\n    ? 'Pipe ' + port\r\n    : 'Port ' + port;\r\n\r\n  // handle specific listen errors with friendly messages\r\n  switch (error.code) {\r\n    case 'EACCES':\r\n      console.error(bind + ' requires elevated privileges');\r\n      process.exit(1);\r\n      break;\r\n    case 'EADDRINUSE':\r\n      console.error(bind + ' is already in use');\r\n      process.exit(1);\r\n      break;\r\n    default:\r\n      throw error;\r\n  }\r\n}\r\n\r\n/**\r\n * Event listener for HTTP server \"listening\" event.\r\n */\r\n\r\nfunction onListening() {\r\n  var addr = server.address();\r\n  var bind = typeof addr === 'string'\r\n    ? 'pipe ' + addr\r\n    : 'port ' + addr.port;\r\n  console.log('listening on', bind)\r\n  debug('Listening on ' + bind);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/www b/bin/www
+--- a/bin/www	
++++ b/bin/www	
+@@ -3,23 +3,20 @@
+ /**
+  * Module dependencies.
+  */
+-
+-var app = require('../app');
+-var debug = require('debug')('game-list:server');
+-var http = require('http');
++const app = require('../app');
++const debug = require('debug')('game-list:server');
++const http = require('http');
+ 
+ /**
+  * Get port from environment and store in Express.
+  */
+-
+-var port = normalizePort(process.env.PORT || '3000');
++const port = normalizePort(process.env.PORT || '3000');
+ app.set('port', port);
+ 
+ /**
+  * Create HTTP server.
+  */
+-
+-var server = http.createServer(app);
++const server = http.createServer(app);
+ 
+ /**
+  * Listen on provided port, on all network interfaces.
+@@ -34,7 +31,7 @@
+  */
+ 
+ function normalizePort(val) {
+-  var port = parseInt(val, 10);
++  const port = parseInt(val, 10);
+ 
+   if (isNaN(port)) {
+     // named pipe
+@@ -58,9 +55,9 @@
+     throw error;
+   }
+ 
+-  var bind = typeof port === 'string'
+-    ? 'Pipe ' + port
+-    : 'Port ' + port;
++  const bind = typeof port === 'string'
++      ? 'Pipe ' + port
++      : 'Port ' + port;
+ 
+   // handle specific listen errors with friendly messages
+   switch (error.code) {
+@@ -82,10 +79,10 @@
+  */
+ 
+ function onListening() {
+-  var addr = server.address();
+-  var bind = typeof addr === 'string'
+-    ? 'pipe ' + addr
+-    : 'port ' + addr.port;
++  const addr = server.address();
++  const bind = typeof addr === 'string'
++      ? 'pipe ' + addr
++      : 'port ' + addr.port;
+   console.log('listening on', bind)
+   debug('Listening on ' + bind);
+ }
+Index: controllers/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const UserController = require('./user-controller');\r\nconst PostController = require('./post-controller');\r\nconst FollowController = require('./follow-controller');\r\nconst LikeController = require('./like-controller');\r\nconst CommentController = require('./comment-controller');\r\nconst MiningController = require('./mining-controller');// Исправлено имя переменной\r\nconst BalanceController = require('./balance-controller');\r\n\r\nmodule.exports = {\r\n  UserController,\r\n  PostController,\r\n  FollowController,\r\n  LikeController,\r\n  CommentController,\r\n  MiningController, // Добавлено в экспорт\r\n  BalanceController\r\n};\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/controllers/index.js b/controllers/index.js
+--- a/controllers/index.js	
++++ b/controllers/index.js	
+@@ -3,8 +3,12 @@
+ const FollowController = require('./follow-controller');
+ const LikeController = require('./like-controller');
+ const CommentController = require('./comment-controller');
+-const MiningController = require('./mining-controller');// Исправлено имя переменной
++const MiningController = require('./mining-controller'); // Исправлено имя переменной
+ const BalanceController = require('./balance-controller');
++const BalanceMiningController = require('./BalanceMining-controller');
++const MessageController = require('./message-controller'); // Добавлено
++const PremiumController = require('./PremiumController'); // Добавлено
++const MiningPercentageController = require('./mining-percentage'); // Добавлено
+ 
+ module.exports = {
+   UserController,
+@@ -13,5 +17,11 @@
+   LikeController,
+   CommentController,
+   MiningController, // Добавлено в экспорт
+-  BalanceController
++  BalanceController,
++  BalanceMiningController,
++  MessageController, // Добавлено в экспорт
++  PremiumController, // Добавлено в экспорт
++  MiningPercentageController // Добавлено в экспорт
+ };
++
++
+Index: docker-compose.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>version: '3' # версия синтаксиса\r\nservices:\r\n express-app: # Сервер Express\r\n    build: .\r\n    ports:\r\n      - '3000:3000'\r\n    depends_on:\r\n      - db\r\n      - react-app\r\n    environment:\r\n      DATABASE_URL: 'mongodb://monty:pass@db:27017/mydatabase?authSource=admin&directConnection=true'\r\n db: # База данных\r\n    image: prismagraphql/mongo-single-replica:5.0.3\r\n    ports:\r\n      - '27017:27017'\r\n    environment:\r\n      MONGO_INITDB_ROOT_USERNAME: monty\r\n      MONGO_INITDB_ROOT_PASSWORD: pass\r\n react-app: # React-приложение\r\n    build: ../react-threads # Путь к вашему React-приложению относительно корня вашего проекта\r\n    ports:\r\n      - '80:80' # Порт, на котором будет доступно ваше React-приложение\r\n      - '8000:8000' # Порт, на котором будет доступно ваше React-приложение\r\nvolumes:\r\n react_app: # Объявление именованного тома
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/docker-compose.yml b/docker-compose.yml
+--- a/docker-compose.yml	
++++ b/docker-compose.yml	
+@@ -1,6 +1,6 @@
+ version: '3' # версия синтаксиса
+ services:
+- express-app: # Сервер Express
++  kedrserver: # Сервер Express
+     build: .
+     ports:
+       - '3000:3000'
+@@ -9,17 +9,17 @@
+       - react-app
+     environment:
+       DATABASE_URL: 'mongodb://monty:pass@db:27017/mydatabase?authSource=admin&directConnection=true'
+- db: # База данных
++  db: # База данных
+     image: prismagraphql/mongo-single-replica:5.0.3
+     ports:
+       - '27017:27017'
+     environment:
+       MONGO_INITDB_ROOT_USERNAME: monty
+       MONGO_INITDB_ROOT_PASSWORD: pass
+- react-app: # React-приложение
+-    build: ../react-threads # Путь к вашему React-приложению относительно корня вашего проекта
++  react-app: # React-приложение
++    build: ../Kedrfrontend # Путь к вашему React-приложению относительно корня вашего проекта
+     ports:
+       - '80:80' # Порт, на котором будет доступно ваше React-приложение
+       - '8000:8000' # Порт, на котором будет доступно ваше React-приложение
+ volumes:
+- react_app: # Объявление именованного тома
+\ No newline at end of file
++  kedrfrontend: # Объявление именованного тома
+Index: controllers/mining-percentage.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/controllers/mining-percentage.js b/controllers/mining-percentage.js
+new file mode 100644
+--- /dev/null	
++++ b/controllers/mining-percentage.js	
+@@ -0,0 +1,70 @@
++const { prisma } = require("../prisma/prisma-client");
++
++const MiningPercentageController = {
++    getMiningPercentage: async (req, res) => {
++        const { userId } = req.params;
++
++        try {
++            const user = await prisma.user.findUnique({
++                where: { id: userId },
++                select: { miningPercentage: true },
++            });
++
++            if (!user) {
++                return res.status(404).json({ error: "Пользователь не найден" });
++            }
++
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в getMiningPercentage:", error);
++            res.status(500).json({ error: "Что-то пошло не так1", details: error.message });
++        }
++    },
++
++    updateMiningPercentage: async (req, res) => {
++        const { userId } = req.params;
++        const { miningPercentage } = req.body;
++
++        // Проверка, что пользователь обновляет свой процент майнинга
++        if (userId !== req.user.userId) {
++            return res.status(403).json({ error: "Нет доступа" });
++        }
++
++        try {
++            const user = await prisma.user.update({
++                where: { id: userId },
++                data: {
++                    miningPercentage: parseFloat(miningPercentage), // Преобразуем строку в число
++                },
++            });
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в updateMiningPercentage:", error);
++            res.status(500).json({ error: "Что-то пошло не так2", details: error.message });
++        }
++    },
++
++    deleteMiningPercentage: async (req, res) => {
++        const { userId } = req.params;
++
++        // Проверка, что пользователь удаляет свой процент майнинга
++        if (userId !== req.user.userId) {
++            return res.status(403).json({ error: "Нет доступа" });
++        }
++
++        try {
++            const user = await prisma.user.update({
++                where: { id: userId },
++                data: {
++                    miningPercentage: 0,
++                },
++            });
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в deleteMiningPercentage:", error);
++            res.status(500).json({ error: "Что-то пошло не так3", details: error.message });
++        }
++    },
++};
++
++module.exports = MiningPercentageController;
+Index: node_modules/.prisma/client/index-browser.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\n\r\nconst {\r\n  Decimal,\r\n  objectEnumValues,\r\n  makeStrictEnum,\r\n  Public,\r\n  getRuntime\r\n} = require('@prisma/client/runtime/index-browser.js')\r\n\r\n\r\nconst Prisma = {}\r\n\r\nexports.Prisma = Prisma\r\nexports.$Enums = {}\r\n\r\n/**\r\n * Prisma Client JS version: 5.19.1\r\n * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3\r\n */\r\nPrisma.prismaVersion = {\r\n  client: \"5.19.1\",\r\n  engine: \"69d742ee20b815d88e17e54db4a2a7a3b30324e3\"\r\n}\r\n\r\nPrisma.PrismaClientKnownRequestError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientKnownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)};\r\nPrisma.PrismaClientUnknownRequestError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientUnknownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.PrismaClientRustPanicError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientRustPanicError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.PrismaClientInitializationError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientInitializationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.PrismaClientValidationError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientValidationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.NotFoundError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`NotFoundError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.Decimal = Decimal\r\n\r\n/**\r\n * Re-export of sql-template-tag\r\n */\r\nPrisma.sql = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`sqltag is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.empty = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`empty is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.join = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`join is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.raw = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`raw is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.validator = Public.validator\r\n\r\n/**\r\n* Extensions\r\n*/\r\nPrisma.getExtensionContext = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`Extensions.getExtensionContext is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.defineExtension = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`Extensions.defineExtension is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\n\r\n/**\r\n * Shorthand utilities for JSON filtering\r\n */\r\nPrisma.DbNull = objectEnumValues.instances.DbNull\r\nPrisma.JsonNull = objectEnumValues.instances.JsonNull\r\nPrisma.AnyNull = objectEnumValues.instances.AnyNull\r\n\r\nPrisma.NullTypes = {\r\n  DbNull: objectEnumValues.classes.DbNull,\r\n  JsonNull: objectEnumValues.classes.JsonNull,\r\n  AnyNull: objectEnumValues.classes.AnyNull\r\n}\r\n\r\n/**\r\n * Enums\r\n */\r\n\r\nexports.Prisma.UserScalarFieldEnum = {\r\n  id: 'id',\r\n  email: 'email',\r\n  password: 'password',\r\n  name: 'name',\r\n  avatarUrl: 'avatarUrl',\r\n  dateOfBirth: 'dateOfBirth',\r\n  createdAt: 'createdAt',\r\n  updatedAt: 'updatedAt',\r\n  bio: 'bio',\r\n  location: 'location',\r\n  balance: 'balance'\r\n};\r\n\r\nexports.Prisma.FollowsScalarFieldEnum = {\r\n  id: 'id',\r\n  followerId: 'followerId',\r\n  followingId: 'followingId'\r\n};\r\n\r\nexports.Prisma.PostScalarFieldEnum = {\r\n  id: 'id',\r\n  content: 'content',\r\n  authorId: 'authorId',\r\n  createdAt: 'createdAt'\r\n};\r\n\r\nexports.Prisma.LikeScalarFieldEnum = {\r\n  id: 'id',\r\n  userId: 'userId',\r\n  postId: 'postId'\r\n};\r\n\r\nexports.Prisma.CommentScalarFieldEnum = {\r\n  id: 'id',\r\n  content: 'content',\r\n  userId: 'userId',\r\n  postId: 'postId'\r\n};\r\n\r\nexports.Prisma.MiningSessionScalarFieldEnum = {\r\n  id: 'id',\r\n  userId: 'userId',\r\n  startedAt: 'startedAt',\r\n  balance: 'balance',\r\n  createdAt: 'createdAt',\r\n  updatedAt: 'updatedAt'\r\n};\r\n\r\nexports.Prisma.BalanceScalarFieldEnum = {\r\n  id: 'id',\r\n  userId: 'userId',\r\n  amount: 'amount',\r\n  createdAt: 'createdAt',\r\n  updatedAt: 'updatedAt'\r\n};\r\n\r\nexports.Prisma.SortOrder = {\r\n  asc: 'asc',\r\n  desc: 'desc'\r\n};\r\n\r\nexports.Prisma.QueryMode = {\r\n  default: 'default',\r\n  insensitive: 'insensitive'\r\n};\r\n\r\n\r\nexports.Prisma.ModelName = {\r\n  User: 'User',\r\n  Follows: 'Follows',\r\n  Post: 'Post',\r\n  Like: 'Like',\r\n  Comment: 'Comment',\r\n  MiningSession: 'MiningSession',\r\n  Balance: 'Balance'\r\n};\r\n\r\n/**\r\n * This is a stub Prisma Client that will error at runtime if called.\r\n */\r\nclass PrismaClient {\r\n  constructor() {\r\n    return new Proxy(this, {\r\n      get(target, prop) {\r\n        let message\r\n        const runtime = getRuntime()\r\n        if (runtime.isEdge) {\r\n          message = `PrismaClient is not configured to run in ${runtime.prettyName}. In order to run Prisma Client on edge runtime, either:\r\n- Use Prisma Accelerate: https://pris.ly/d/accelerate\r\n- Use Driver Adapters: https://pris.ly/d/driver-adapters\r\n`;\r\n        } else {\r\n          message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'\r\n        }\r\n        \r\n        message += `\r\nIf this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`\r\n\r\n        throw new Error(message)\r\n      }\r\n    })\r\n  }\r\n}\r\n\r\nexports.PrismaClient = PrismaClient\r\n\r\nObject.assign(exports, Prisma)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/node_modules/.prisma/client/index-browser.js b/node_modules/.prisma/client/index-browser.js
+--- a/node_modules/.prisma/client/index-browser.js	
++++ b/node_modules/.prisma/client/index-browser.js	
+@@ -123,7 +123,11 @@
+   updatedAt: 'updatedAt',
+   bio: 'bio',
+   location: 'location',
+-  balance: 'balance'
++  balance: 'balance',
++  balanceMining: 'balanceMining',
++  percentage: 'percentage',
++  miningPercentage: 'miningPercentage',
++  isPremium: 'isPremium'
+ };
+ 
+ exports.Prisma.FollowsScalarFieldEnum = {
+@@ -169,6 +173,14 @@
+   updatedAt: 'updatedAt'
+ };
+ 
++exports.Prisma.MessageScalarFieldEnum = {
++  id: 'id',
++  senderId: 'senderId',
++  receiverId: 'receiverId',
++  text: 'text',
++  timestamp: 'timestamp'
++};
++
+ exports.Prisma.SortOrder = {
+   asc: 'asc',
+   desc: 'desc'
+@@ -187,7 +199,8 @@
+   Like: 'Like',
+   Comment: 'Comment',
+   MiningSession: 'MiningSession',
+-  Balance: 'Balance'
++  Balance: 'Balance',
++  Message: 'Message'
+ };
+ 
+ /**
+Index: prisma/schema.prisma
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>generator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"mongodb\"\r\n  url      = env(\"DATABASE_URL\")\r\n}\r\n\r\nmodel User {\r\n  id             String          @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  email          String          @unique\r\n  password       String\r\n  name           String?\r\n  avatarUrl      String?\r\n  dateOfBirth    DateTime?\r\n  createdAt      DateTime        @default(now())\r\n  updatedAt      DateTime        @updatedAt\r\n  bio            String?\r\n  location       String?\r\n  balance        Float           @default(0)\r\n  posts          Post[]\r\n  likes          Like[]\r\n  comments       Comment[]\r\n  followers      Follows[]       @relation(\"following\")\r\n  following      Follows[]       @relation(\"follower\")\r\n  miningSessions MiningSession[]\r\n  balances       Balance[]\r\n}\r\n\r\nmodel Follows {\r\n  id          String @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  follower    User   @relation(\"follower\", fields: [followerId], references: [id])\r\n  followerId  String @db.ObjectId\r\n  following   User   @relation(\"following\", fields: [followingId], references: [id])\r\n  followingId String @db.ObjectId\r\n\r\n  @@index([followerId, followingId], name: \"follower_following_index\")\r\n}\r\n\r\nmodel Post {\r\n  id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  content   String\r\n  author    User      @relation(fields: [authorId], references: [id])\r\n  authorId  String    @db.ObjectId\r\n  likes     Like[]\r\n  comments  Comment[]\r\n  createdAt DateTime  @default(now())\r\n}\r\n\r\nmodel Like {\r\n  id     String @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  user   User   @relation(fields: [userId], references: [id])\r\n  userId String @db.ObjectId\r\n  post   Post   @relation(fields: [postId], references: [id])\r\n  postId String @db.ObjectId\r\n\r\n  @@index([userId, postId], name: \"user_post_index\")\r\n}\r\n\r\nmodel Comment {\r\n  id      String @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  content String\r\n  user    User   @relation(fields: [userId], references: [id])\r\n  userId  String @db.ObjectId\r\n  post    Post   @relation(fields: [postId], references: [id])\r\n  postId  String @db.ObjectId\r\n\r\n  @@index([userId, postId], name: \"user_post_index\")\r\n}\r\n\r\nmodel MiningSession {\r\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  userId    String   @db.ObjectId\r\n  user      User     @relation(fields: [userId], references: [id])\r\n  startedAt DateTime @default(now())\r\n  balance   Float    @default(0)\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n\r\n  @@index([userId], name: \"user_mining_index\")\r\n}\r\n\r\nmodel Balance {\r\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  userId    String   @db.ObjectId\r\n  user      User     @relation(fields: [userId], references: [id])\r\n  amount    Float    @default(0)\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n\r\n  @@index([userId], name: \"user_balance_index\")\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/prisma/schema.prisma b/prisma/schema.prisma
+--- a/prisma/schema.prisma	
++++ b/prisma/schema.prisma	
+@@ -8,24 +8,30 @@
+ }
+ 
+ model User {
+-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+-  email          String          @unique
+-  password       String
+-  name           String?
+-  avatarUrl      String?
+-  dateOfBirth    DateTime?
+-  createdAt      DateTime        @default(now())
+-  updatedAt      DateTime        @updatedAt
+-  bio            String?
+-  location       String?
+-  balance        Float           @default(0)
+-  posts          Post[]
+-  likes          Like[]
+-  comments       Comment[]
+-  followers      Follows[]       @relation("following")
+-  following      Follows[]       @relation("follower")
+-  miningSessions MiningSession[]
+-  balances       Balance[]
++  id               String          @id @default(auto()) @map("_id") @db.ObjectId
++  email            String          @unique
++  password         String
++  name             String?
++  avatarUrl        String?
++  dateOfBirth      DateTime?
++  createdAt        DateTime        @default(now())
++  updatedAt        DateTime        @updatedAt
++  bio              String?
++  location         String?
++  balance          Float           @default(0)
++  balanceMining    Float           @default(0)
++  percentage       Float           @default(0) // Новое поле для хранения процента майнинга
++  miningPercentage Float           @default(0) // Добавьте это поле
++  isPremium        Boolean         @default(false) // Добавлено поле isPremium
++  posts            Post[]
++  likes            Like[]
++  comments         Comment[]
++  followers        Follows[]       @relation("following")
++  following        Follows[]       @relation("follower")
++  miningSessions   MiningSession[]
++  Balance          Balance[]
++  sentMessages     Message[]       @relation("sender")
++  receivedMessages Message[]       @relation("receiver")
+ }
+ 
+ model Follows {
+@@ -91,3 +97,15 @@
+ 
+   @@index([userId], name: "user_balance_index")
+ }
++
++model Message {
++  id         String   @id @default(auto()) @map("_id") @db.ObjectId
++  sender     User     @relation("sender", fields: [senderId], references: [id])
++  senderId   String   @db.ObjectId
++  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
++  receiverId String   @db.ObjectId
++  text       String
++  timestamp  DateTime @default(now())
++
++  @@index([senderId, receiverId], name: "sender_receiver_index")
++}
+Index: controllers/message-controller.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/controllers/message-controller.js b/controllers/message-controller.js
+new file mode 100644
+--- /dev/null	
++++ b/controllers/message-controller.js	
+@@ -0,0 +1,22 @@
++const Message = require('../models/message-model'); // Предположим, что у вас есть модель Message
++
++exports.sendMessage = async (req, res) => {
++    try {
++        const { sender, receiver, text } = req.body;
++        const message = new Message({ sender, receiver, text, timestamp: new Date() });
++        await message.save();
++        res.status(200).send({ message: 'Message sent successfully' });
++    } catch (error) {
++        res.status(500).send({ error: 'Error sending message' });
++    }
++};
++
++exports.getMessages = async (req, res) => {
++    try {
++        const receiver = req.params.receiver;
++        const messages = await Message.find({ receiver });
++        res.status(200).send(messages);
++    } catch (error) {
++        res.status(500).send({ error: 'Error fetching messages' });
++    }
++};
+Index: models/message-model.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/models/message-model.js b/models/message-model.js
+new file mode 100644
+--- /dev/null	
++++ b/models/message-model.js	
+@@ -0,0 +1,12 @@
++const mongoose = require('mongoose');
++
++const messageSchema = new mongoose.Schema({
++    sender: { type: String, required: true },
++    receiver: { type: String, required: true },
++    text: { type: String, required: true },
++    timestamp: { type: Date, required: true }
++});
++
++const Message = mongoose.model('Message', messageSchema);
++
++module.exports = Message;
+Index: controllers/PremiumController.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/controllers/PremiumController.js b/controllers/PremiumController.js
+new file mode 100644
+--- /dev/null	
++++ b/controllers/PremiumController.js	
+@@ -0,0 +1,56 @@
++const { prisma } = require("../prisma/prisma-client");
++
++const PremiumController = {
++    updatePremiumStatus: async (req, res) => {
++        const { id } = req.params;
++        const { isPremium } = req.body;
++
++        try {
++            // Обновляем статус премиум пользователя
++            const user = await prisma.user.update({
++                where: { id },
++                data: { isPremium },
++            });
++
++            res.json(user);
++        } catch (error) {
++            console.error("Error in updatePremiumStatus:", error);
++            res.status(500).json({ error: "Internal server error" });
++        }
++    },
++    getPremiumStatus: async (req, res) => {
++        const { id } = req.params;
++
++        try {
++            // Получаем информацию о премиум-статусе пользователя
++            const user = await prisma.user.findUnique({
++                where: { id },
++                select: { isPremium: true },
++            });
++
++            res.json(user);
++        } catch (error) {
++            console.error("Error in getPremiumStatus:", error);
++            res.status(500).json({ error: "Internal server error" });
++        }
++    },
++    deletePremiumStatus: async (req, res) => {
++        const { id } = req.params;
++
++        try {
++            // Удаляем премиум-статус пользователя
++            const user = await prisma.user.update({
++                where: { id },
++                data: { isPremium: false },
++            });
++
++            res.json(user);
++        } catch (error) {
++            console.error("Error in deletePremiumStatus:", error);
++            res.status(500).json({ error: "Internal server error" });
++        }
++    },
++};
++
++module.exports = PremiumController;
++
+Index: controllers/BalanceMining-controller.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/controllers/BalanceMining-controller.js b/controllers/BalanceMining-controller.js
+new file mode 100644
+--- /dev/null	
++++ b/controllers/BalanceMining-controller.js	
+@@ -0,0 +1,116 @@
++const { prisma } = require("../prisma/prisma-client");
++
++const BalanceMiningController = {
++    getUserBalanceMining: async (req, res) => {
++        const { userId } = req.params;
++
++        try {
++            const user = await prisma.user.findUnique({
++                where: { id: userId },
++                select: { balanceMining: true },
++            });
++
++            if (!user) {
++                return res.status(404).json({ error: "Пользователь не найден" });
++            }
++
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в getUserBalanceMining:", error);
++            res.status(500).json({ error: "Что-то пошло не так" });
++        }
++    },
++
++    updateUserBalanceMining: async (req, res) => {
++        const { userId } = req.params;
++        const { balanceMining } = req.body;
++
++        // Проверка, что пользователь обновляет свой баланс
++        if (userId !== req.user.userId) {
++            return res.status(403).json({ error: "Нет доступа" });
++        }
++
++        try {
++            const user = await prisma.user.update({
++                where: { id: userId },
++                data: {
++                    balanceMining: parseFloat(balanceMining), // Преобразуем строку в число
++                },
++            });
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в updateUserBalanceMining:", error);
++            res.status(500).json({ error: "Что-то пошло не так" });
++        }
++    },
++
++    deleteUserBalanceMining: async (req, res) => {
++        const { userId } = req.params;
++
++        // Проверка, что пользователь удаляет свой баланс
++        if (userId !== req.user.userId) {
++            return res.status(403).json({ error: "Нет доступа" });
++        }
++
++        try {
++            const user = await prisma.user.update({
++                where: { id: userId },
++                data: {
++                    balanceMining: 0,
++                },
++            });
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в deleteUserBalanceMining:", error);
++            res.status(500).json({ error: "Что-то пошло не так" });
++        }
++    },
++
++    startMining: async (req, res) => {
++        const { userId } = req.params;
++
++        try {
++            const user = await prisma.user.update({
++                where: { id: userId },
++                data: {
++                    balanceMining: 0, // Сброс баланса майнинга при начале
++                },
++            });
++            res.json(user);
++        } catch (error) {
++            console.error("Ошибка в startMining:", error);
++            res.status(500).json({ error: "Что-то пошло не так" });
++        }
++    },
++
++    endMining: async (req, res) => {
++        const { userId } = req.params;
++
++        try {
++            const user = await prisma.user.findUnique({
++                where: { id: userId },
++                select: { balanceMining: true, balance: true },
++            });
++
++            if (!user) {
++                return res.status(404).json({ error: "Пользователь не найден" });
++            }
++
++            const newBalance = user.balance + user.balanceMining;
++            const updatedUser = await prisma.user.update({
++                where: { id: userId },
++                data: {
++                    balance: newBalance,
++                    balanceMining: 0,
++                },
++            });
++
++            res.json(updatedUser);
++        } catch (error) {
++            console.error("Ошибка в endMining:", error);
++            res.status(500).json({ error: "Что-то пошло не так" });
++        }
++    },
++};
++
++module.exports = BalanceMiningController;
+Index: node_modules/.prisma/client/schema.prisma
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>generator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"mongodb\"\r\n  url      = env(\"DATABASE_URL\")\r\n}\r\n\r\nmodel User {\r\n  id             String          @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  email          String          @unique\r\n  password       String\r\n  name           String?\r\n  avatarUrl      String?\r\n  dateOfBirth    DateTime?\r\n  createdAt      DateTime        @default(now())\r\n  updatedAt      DateTime        @updatedAt\r\n  bio            String?\r\n  location       String?\r\n  balance        Float           @default(0)\r\n  posts          Post[]\r\n  likes          Like[]\r\n  comments       Comment[]\r\n  followers      Follows[]       @relation(\"following\")\r\n  following      Follows[]       @relation(\"follower\")\r\n  miningSessions MiningSession[]\r\n  balances       Balance[]\r\n}\r\n\r\nmodel Follows {\r\n  id          String @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  follower    User   @relation(\"follower\", fields: [followerId], references: [id])\r\n  followerId  String @db.ObjectId\r\n  following   User   @relation(\"following\", fields: [followingId], references: [id])\r\n  followingId String @db.ObjectId\r\n\r\n  @@index([followerId, followingId], name: \"follower_following_index\")\r\n}\r\n\r\nmodel Post {\r\n  id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  content   String\r\n  author    User      @relation(fields: [authorId], references: [id])\r\n  authorId  String    @db.ObjectId\r\n  likes     Like[]\r\n  comments  Comment[]\r\n  createdAt DateTime  @default(now())\r\n}\r\n\r\nmodel Like {\r\n  id     String @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  user   User   @relation(fields: [userId], references: [id])\r\n  userId String @db.ObjectId\r\n  post   Post   @relation(fields: [postId], references: [id])\r\n  postId String @db.ObjectId\r\n\r\n  @@index([userId, postId], name: \"user_post_index\")\r\n}\r\n\r\nmodel Comment {\r\n  id      String @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  content String\r\n  user    User   @relation(fields: [userId], references: [id])\r\n  userId  String @db.ObjectId\r\n  post    Post   @relation(fields: [postId], references: [id])\r\n  postId  String @db.ObjectId\r\n\r\n  @@index([userId, postId], name: \"user_post_index\")\r\n}\r\n\r\nmodel MiningSession {\r\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  userId    String   @db.ObjectId\r\n  user      User     @relation(fields: [userId], references: [id])\r\n  startedAt DateTime @default(now())\r\n  balance   Float    @default(0)\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n\r\n  @@index([userId], name: \"user_mining_index\")\r\n}\r\n\r\nmodel Balance {\r\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  userId    String   @db.ObjectId\r\n  user      User     @relation(fields: [userId], references: [id])\r\n  amount    Float    @default(0)\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n\r\n  @@index([userId], name: \"user_balance_index\")\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/node_modules/.prisma/client/schema.prisma b/node_modules/.prisma/client/schema.prisma
+--- a/node_modules/.prisma/client/schema.prisma	
++++ b/node_modules/.prisma/client/schema.prisma	
+@@ -8,24 +8,30 @@
+ }
+ 
+ model User {
+-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+-  email          String          @unique
+-  password       String
+-  name           String?
+-  avatarUrl      String?
+-  dateOfBirth    DateTime?
+-  createdAt      DateTime        @default(now())
+-  updatedAt      DateTime        @updatedAt
+-  bio            String?
+-  location       String?
+-  balance        Float           @default(0)
+-  posts          Post[]
+-  likes          Like[]
+-  comments       Comment[]
+-  followers      Follows[]       @relation("following")
+-  following      Follows[]       @relation("follower")
+-  miningSessions MiningSession[]
+-  balances       Balance[]
++  id               String          @id @default(auto()) @map("_id") @db.ObjectId
++  email            String          @unique
++  password         String
++  name             String?
++  avatarUrl        String?
++  dateOfBirth      DateTime?
++  createdAt        DateTime        @default(now())
++  updatedAt        DateTime        @updatedAt
++  bio              String?
++  location         String?
++  balance          Float           @default(0)
++  balanceMining    Float           @default(0)
++  percentage       Float           @default(0) // Новое поле для хранения процента майнинга
++  miningPercentage Float           @default(0) // Добавьте это поле
++  isPremium        Boolean         @default(false) // Добавлено поле isPremium
++  posts            Post[]
++  likes            Like[]
++  comments         Comment[]
++  followers        Follows[]       @relation("following")
++  following        Follows[]       @relation("follower")
++  miningSessions   MiningSession[]
++  Balance          Balance[]
++  sentMessages     Message[]       @relation("sender")
++  receivedMessages Message[]       @relation("receiver")
+ }
+ 
+ model Follows {
+@@ -91,3 +97,15 @@
+ 
+   @@index([userId], name: "user_balance_index")
+ }
++
++model Message {
++  id         String   @id @default(auto()) @map("_id") @db.ObjectId
++  sender     User     @relation("sender", fields: [senderId], references: [id])
++  senderId   String   @db.ObjectId
++  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
++  receiverId String   @db.ObjectId
++  text       String
++  timestamp  DateTime @default(now())
++
++  @@index([senderId, receiverId], name: "sender_receiver_index")
++}
+Index: routes/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const express = require(\"express\");\r\nconst router = express.Router();\r\nconst UserController = require(\"../controllers/user-controller\");\r\nconst PostController = require(\"../controllers/post-controller\");\r\nconst FollowController = require(\"../controllers/follow-controller\");\r\nconst LikeController = require(\"../controllers/like-controller\");\r\nconst CommentController = require(\"../controllers/comment-controller\");\r\nconst MiningController = require(\"../controllers/mining-controller\"); // Добавьте этот импорт\r\nconst BalanceController = require(\"../controllers/balance-controller\"); // Добавьте этот импорт\r\nconst { authenticateToken } = require(\"../middleware/auth\");\r\nconst multer = require('multer');\r\n\r\nconst uploadDestination = 'uploads';\r\n\r\n// Показываем, где хранить загружаемые файлы\r\nconst storage = multer.diskStorage({\r\n  destination: uploadDestination,\r\n  filename: function (req, file, cb) {\r\n    cb(null, file.originalname);\r\n  }\r\n});\r\n\r\nconst upload = multer({ storage: storage });\r\n\r\n// Роуты User\r\nrouter.post(\"/register\", UserController.register);\r\nrouter.post(\"/login\", UserController.login);\r\nrouter.get(\"/current\", authenticateToken, UserController.current);\r\nrouter.get(\"/users/:id\", authenticateToken, UserController.getUserById);\r\nrouter.put(\"/users/:id\", authenticateToken, upload.single('avatar'), UserController.updateUser);\r\n\r\n// Роуты Post\r\nrouter.post(\"/posts\", authenticateToken, PostController.createPost);\r\nrouter.get(\"/posts\", authenticateToken, PostController.getAllPosts);\r\nrouter.get(\"/posts/:id\", authenticateToken, PostController.getPostById);\r\nrouter.delete(\"/posts/:id\", authenticateToken, PostController.deletePost);\r\n\r\n// Роуты подписки\r\nrouter.post(\"/follow\", authenticateToken, FollowController.followUser);\r\nrouter.delete(\"/unfollow/:id\", authenticateToken, FollowController.unfollowUser);\r\n\r\n// Роуты лайков\r\nrouter.post(\"/likes\", authenticateToken, LikeController.likePost);\r\nrouter.delete(\"/likes/:id\", authenticateToken, LikeController.unlikePost);\r\n\r\n// Роуты комментариев\r\nrouter.post(\"/comments\", authenticateToken, CommentController.createComment);\r\nrouter.delete(\"/comments/:id\", authenticateToken, CommentController.deleteComment);\r\n\r\n// Роуты для майнинга монеты KEDR\r\nrouter.get(\"/mining\", authenticateToken, MiningController.miningPage);\r\nrouter.post(\"/mining/start\", authenticateToken, MiningController.startMining);\r\nrouter.post(\"/mining/end\", authenticateToken, MiningController.endMining);\r\n\r\n// Роуты для управления балансом пользователя\r\nrouter.get(\"/balance/:userId\", authenticateToken, BalanceController.getUserBalance);\r\nrouter.put(\"/balance/:userId\", authenticateToken, BalanceController.updateUserBalance);\r\nrouter.delete(\"/balance/:userId\", authenticateToken, BalanceController.deleteUserBalance);\r\n\r\nmodule.exports = router;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/routes/index.js b/routes/index.js
+--- a/routes/index.js	
++++ b/routes/index.js	
+@@ -5,14 +5,18 @@
+ const FollowController = require("../controllers/follow-controller");
+ const LikeController = require("../controllers/like-controller");
+ const CommentController = require("../controllers/comment-controller");
+-const MiningController = require("../controllers/mining-controller"); // Добавьте этот импорт
+-const BalanceController = require("../controllers/balance-controller"); // Добавьте этот импорт
++const MiningController = require("../controllers/mining-controller");
++const PercentageController = require("../controllers/mining-percentage");
++const BalanceController = require("../controllers/balance-controller");
++const BalanceMiningController = require("../controllers/BalanceMining-controller");
++const MessageController = require("../controllers/message-controller");
++const PremiumController = require("../controllers/PremiumController");
+ const { authenticateToken } = require("../middleware/auth");
+ const multer = require('multer');
+ 
+ const uploadDestination = 'uploads';
+ 
+-// Показываем, где хранить загружаемые файлы
++// Указываем, где хранить загружаемые файлы
+ const storage = multer.diskStorage({
+   destination: uploadDestination,
+   filename: function (req, file, cb) {
+@@ -22,39 +26,63 @@
+ 
+ const upload = multer({ storage: storage });
+ 
+-// Роуты User
++// Маршруты User
+ router.post("/register", UserController.register);
+ router.post("/login", UserController.login);
+ router.get("/current", authenticateToken, UserController.current);
+ router.get("/users/:id", authenticateToken, UserController.getUserById);
+ router.put("/users/:id", authenticateToken, upload.single('avatar'), UserController.updateUser);
+ 
+-// Роуты Post
++// Маршруты Post
+ router.post("/posts", authenticateToken, PostController.createPost);
+ router.get("/posts", authenticateToken, PostController.getAllPosts);
+ router.get("/posts/:id", authenticateToken, PostController.getPostById);
+ router.delete("/posts/:id", authenticateToken, PostController.deletePost);
+ 
+-// Роуты подписки
++// Маршруты подписки
+ router.post("/follow", authenticateToken, FollowController.followUser);
+ router.delete("/unfollow/:id", authenticateToken, FollowController.unfollowUser);
+ 
+-// Роуты лайков
++// Маршруты лайков
+ router.post("/likes", authenticateToken, LikeController.likePost);
+ router.delete("/likes/:id", authenticateToken, LikeController.unlikePost);
+ 
+-// Роуты комментариев
++// Маршруты комментариев
+ router.post("/comments", authenticateToken, CommentController.createComment);
+ router.delete("/comments/:id", authenticateToken, CommentController.deleteComment);
+ 
+-// Роуты для майнинга монеты KEDR
++// Маршруты для майнинга монеты KEDR
+ router.get("/mining", authenticateToken, MiningController.miningPage);
+ router.post("/mining/start", authenticateToken, MiningController.startMining);
+ router.post("/mining/end", authenticateToken, MiningController.endMining);
+ 
+-// Роуты для управления балансом пользователя
++// Маршруты для управления балансом пользователя
+ router.get("/balance/:userId", authenticateToken, BalanceController.getUserBalance);
+ router.put("/balance/:userId", authenticateToken, BalanceController.updateUserBalance);
+ router.delete("/balance/:userId", authenticateToken, BalanceController.deleteUserBalance);
+ 
+-module.exports = router;
+\ No newline at end of file
++// Маршруты для управления полем balanceMining
++router.get("/balance-mining/:userId", authenticateToken, BalanceMiningController.getUserBalanceMining);
++router.put("/balance-mining/:userId", authenticateToken, BalanceMiningController.updateUserBalanceMining);
++router.delete("/balance-mining/:userId", authenticateToken, BalanceMiningController.deleteUserBalanceMining);
++router.post("/balance-mining/start/:userId", authenticateToken, BalanceMiningController.startMining);
++router.put("/balance-mining/start/:userId", authenticateToken, BalanceMiningController.startMining);
++router.post("/balance-mining/end/:userId", authenticateToken, BalanceMiningController.endMining);
++
++// Маршруты для личных сообщений
++router.post("/messages", authenticateToken, MessageController.sendMessage);
++router.get("/messages/:receiver", authenticateToken, MessageController.getMessages);
++
++// Маршруты для управления премиум-статусом пользователя
++router.put("/premium/:id", authenticateToken, PremiumController.updatePremiumStatus); // Обновление премиум-статуса
++router.get("/premium/:id", authenticateToken, PremiumController.getPremiumStatus); // Получение информации о премиум-статусе
++router.delete("/premium/:id", authenticateToken, PremiumController.deletePremiumStatus); // Удаление премиум-статуса (если это имеет смысл)
++
++// Маршруты для управления процентом майнинга
++router.get("/mining-percentage/:userId", authenticateToken, PercentageController.getMiningPercentage);
++router.put("/mining-percentage/:userId", authenticateToken, PercentageController.updateMiningPercentage);
++router.delete("/mining-percentage/:userId", authenticateToken, PercentageController.deleteMiningPercentage);
++
++module.exports = router;
++
++
+Index: node_modules/.prisma/client/wasm.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\n\r\nconst {\r\n  Decimal,\r\n  objectEnumValues,\r\n  makeStrictEnum,\r\n  Public,\r\n  getRuntime\r\n} = require('@prisma/client/runtime/index-browser.js')\r\n\r\n\r\nconst Prisma = {}\r\n\r\nexports.Prisma = Prisma\r\nexports.$Enums = {}\r\n\r\n/**\r\n * Prisma Client JS version: 5.19.1\r\n * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3\r\n */\r\nPrisma.prismaVersion = {\r\n  client: \"5.19.1\",\r\n  engine: \"69d742ee20b815d88e17e54db4a2a7a3b30324e3\"\r\n}\r\n\r\nPrisma.PrismaClientKnownRequestError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientKnownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)};\r\nPrisma.PrismaClientUnknownRequestError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientUnknownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.PrismaClientRustPanicError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientRustPanicError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.PrismaClientInitializationError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientInitializationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.PrismaClientValidationError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`PrismaClientValidationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.NotFoundError = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`NotFoundError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.Decimal = Decimal\r\n\r\n/**\r\n * Re-export of sql-template-tag\r\n */\r\nPrisma.sql = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`sqltag is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.empty = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`empty is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.join = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`join is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.raw = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`raw is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.validator = Public.validator\r\n\r\n/**\r\n* Extensions\r\n*/\r\nPrisma.getExtensionContext = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`Extensions.getExtensionContext is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\nPrisma.defineExtension = () => {\r\n  const runtimeName = getRuntime().prettyName;\r\n  throw new Error(`Extensions.defineExtension is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).\r\nIn case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,\r\n)}\r\n\r\n/**\r\n * Shorthand utilities for JSON filtering\r\n */\r\nPrisma.DbNull = objectEnumValues.instances.DbNull\r\nPrisma.JsonNull = objectEnumValues.instances.JsonNull\r\nPrisma.AnyNull = objectEnumValues.instances.AnyNull\r\n\r\nPrisma.NullTypes = {\r\n  DbNull: objectEnumValues.classes.DbNull,\r\n  JsonNull: objectEnumValues.classes.JsonNull,\r\n  AnyNull: objectEnumValues.classes.AnyNull\r\n}\r\n\r\n/**\r\n * Enums\r\n */\r\n\r\nexports.Prisma.UserScalarFieldEnum = {\r\n  id: 'id',\r\n  email: 'email',\r\n  password: 'password',\r\n  name: 'name',\r\n  avatarUrl: 'avatarUrl',\r\n  dateOfBirth: 'dateOfBirth',\r\n  createdAt: 'createdAt',\r\n  updatedAt: 'updatedAt',\r\n  bio: 'bio',\r\n  location: 'location',\r\n  balance: 'balance'\r\n};\r\n\r\nexports.Prisma.FollowsScalarFieldEnum = {\r\n  id: 'id',\r\n  followerId: 'followerId',\r\n  followingId: 'followingId'\r\n};\r\n\r\nexports.Prisma.PostScalarFieldEnum = {\r\n  id: 'id',\r\n  content: 'content',\r\n  authorId: 'authorId',\r\n  createdAt: 'createdAt'\r\n};\r\n\r\nexports.Prisma.LikeScalarFieldEnum = {\r\n  id: 'id',\r\n  userId: 'userId',\r\n  postId: 'postId'\r\n};\r\n\r\nexports.Prisma.CommentScalarFieldEnum = {\r\n  id: 'id',\r\n  content: 'content',\r\n  userId: 'userId',\r\n  postId: 'postId'\r\n};\r\n\r\nexports.Prisma.MiningSessionScalarFieldEnum = {\r\n  id: 'id',\r\n  userId: 'userId',\r\n  startedAt: 'startedAt',\r\n  balance: 'balance',\r\n  createdAt: 'createdAt',\r\n  updatedAt: 'updatedAt'\r\n};\r\n\r\nexports.Prisma.BalanceScalarFieldEnum = {\r\n  id: 'id',\r\n  userId: 'userId',\r\n  amount: 'amount',\r\n  createdAt: 'createdAt',\r\n  updatedAt: 'updatedAt'\r\n};\r\n\r\nexports.Prisma.SortOrder = {\r\n  asc: 'asc',\r\n  desc: 'desc'\r\n};\r\n\r\nexports.Prisma.QueryMode = {\r\n  default: 'default',\r\n  insensitive: 'insensitive'\r\n};\r\n\r\n\r\nexports.Prisma.ModelName = {\r\n  User: 'User',\r\n  Follows: 'Follows',\r\n  Post: 'Post',\r\n  Like: 'Like',\r\n  Comment: 'Comment',\r\n  MiningSession: 'MiningSession',\r\n  Balance: 'Balance'\r\n};\r\n\r\n/**\r\n * This is a stub Prisma Client that will error at runtime if called.\r\n */\r\nclass PrismaClient {\r\n  constructor() {\r\n    return new Proxy(this, {\r\n      get(target, prop) {\r\n        let message\r\n        const runtime = getRuntime()\r\n        if (runtime.isEdge) {\r\n          message = `PrismaClient is not configured to run in ${runtime.prettyName}. In order to run Prisma Client on edge runtime, either:\r\n- Use Prisma Accelerate: https://pris.ly/d/accelerate\r\n- Use Driver Adapters: https://pris.ly/d/driver-adapters\r\n`;\r\n        } else {\r\n          message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'\r\n        }\r\n        \r\n        message += `\r\nIf this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`\r\n\r\n        throw new Error(message)\r\n      }\r\n    })\r\n  }\r\n}\r\n\r\nexports.PrismaClient = PrismaClient\r\n\r\nObject.assign(exports, Prisma)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/node_modules/.prisma/client/wasm.js b/node_modules/.prisma/client/wasm.js
+--- a/node_modules/.prisma/client/wasm.js	
++++ b/node_modules/.prisma/client/wasm.js	
+@@ -123,7 +123,11 @@
+   updatedAt: 'updatedAt',
+   bio: 'bio',
+   location: 'location',
+-  balance: 'balance'
++  balance: 'balance',
++  balanceMining: 'balanceMining',
++  percentage: 'percentage',
++  miningPercentage: 'miningPercentage',
++  isPremium: 'isPremium'
+ };
+ 
+ exports.Prisma.FollowsScalarFieldEnum = {
+@@ -169,6 +173,14 @@
+   updatedAt: 'updatedAt'
+ };
+ 
++exports.Prisma.MessageScalarFieldEnum = {
++  id: 'id',
++  senderId: 'senderId',
++  receiverId: 'receiverId',
++  text: 'text',
++  timestamp: 'timestamp'
++};
++
+ exports.Prisma.SortOrder = {
+   asc: 'asc',
+   desc: 'desc'
+@@ -187,7 +199,8 @@
+   Like: 'Like',
+   Comment: 'Comment',
+   MiningSession: 'MiningSession',
+-  Balance: 'Balance'
++  Balance: 'Balance',
++  Message: 'Message'
+ };
+ 
+ /**
