@@ -22,7 +22,8 @@ RUN prisma generate
 # Копируем Prisma schema и URL базы данных в контейнер
 COPY prisma/schema.prisma ./prisma/
 
-# Открываем порт 3000 в нашем контейнере
+# Открываем порт 3000 в нашем контейнереDockerfile
+
 EXPOSE 3000
 
 # Запускаем сервер
