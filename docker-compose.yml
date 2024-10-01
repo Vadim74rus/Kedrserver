@@ -1,5 +1,4 @@
-version: '3.8'
-
+version: '3' # версия синтаксиса
 services:
   kedrserver: # Сервер Express
     build: .
@@ -7,12 +6,9 @@ services:
       - '3000:3000'
     depends_on:
       - db
+      - react-app
     environment:
       DATABASE_URL: 'mongodb://monty:pass@db:27017/mydatabase?authSource=admin&directConnection=true'
-    volumes:
-      - .:/app
-      - /app/node_modules
-
   db: # База данных
     image: prismagraphql/mongo-single-replica:5.0.3
     ports:
@@ -20,18 +16,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: monty
       MONGO_INITDB_ROOT_PASSWORD: pass
-    volumes:
-      - db-data:/data/db
-
   react-app: # React-приложение
     build: ../Kedrfrontend # Путь к вашему React-приложению относительно корня вашего проекта
     ports:
       - '80:80' # Порт, на котором будет доступно ваше React-приложение
-      - '443:443' # Порт для HTTPS
-    volumes:
-      - ../Kedrfrontend:/app
-      - /app/node_modules
-
+      - '8000:8000' # Порт, на котором будет доступно ваше React-приложение
 volumes:
-  db-data: # Объявление именованного тома для базы данных
-
+  kedrfrontend: # Объявление именованного тома
